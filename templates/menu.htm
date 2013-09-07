@@ -1,0 +1,22 @@
+<html>
+    {include file="shareHeader.htm"}
+    <body class="body_menu">
+        <ul>
+            {foreach $rsses as $rss}
+                <li onmouseover="this.className='li_mouseover';" onmouseout="this.className='';">
+                    {if $rss.unreadcount > 0} <strong>{else} <font size=2px>{/if}
+                    <a href="#" onclick="confirmAllRead({$rss.id})">({$rss.unreadcount})</a>
+                <a target="window_atllst" href="atllst.php?rssid={$rss.id}"> {$rss.name}</a>
+                    {if $rss.unreadcount > 0} </strong>{else}</font>{/if}
+                </li>
+            {/foreach}
+        </ul>
+
+    </body>
+</html>
+<script type="text/javascript">
+    $('body').everyTime('1s',function(){
+        //top.idvirtframeset.cols = "40,*";
+        });
+
+</script>

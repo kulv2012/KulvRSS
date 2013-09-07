@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="./img/style.css" type="text/css" rel="stylesheet">
+    </head>
+
+    <body>
+        <h1>你当前的RSS为:</h1>
+        <ul>
+            {foreach $rsses as $rss}
+                <li>
+                    <a target="_blank" href="/atllst.php?rssid={$rss.id}">{$rss.name}</a>
+                    <label>{$rss.feedurl}</label>
+                </li>
+            {/foreach}
+        </ul>
+        <form id="form" name="form" action="/mis/addOPML.php" method="post">
+            <label style="display:block">我要直接输入一条URL以及名字</label>
+            <label>URL:</label>
+            <input type="text" id="opml" name="szurl" style="width:500px;"></input>
+            <label>RSS名字:</label>
+            <input type="text" id="opml" name="szname" style="width:200px;"></input>
+            <label>格式类型rss/atom:</label>
+            <input type="text" id="opml" name="szfeedtype" style="width:100px;" value="rss"></input>
+            <button type="submit" style="display:block">提交</button>
+            <hr><hr>
+            <label style="display:block">或者请输入OPML文件内容</label>
+            <textarea type="text" id="opml" name="szOpml" style="height: 300px;width:900px;display:block"></textarea>
+            <button type="submit">提交</button>
+        </form>
+    </body>
+</html>

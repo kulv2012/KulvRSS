@@ -1,0 +1,12 @@
+<html>
+    {include file="shareHeader.htm"} 
+    <body>
+    <br>
+        {if (isset($a.title))}
+        <ul>
+            <li><h1><a target="_blank" href="{$a.link}">{$a.title}</a></h1></li>
+            <li>{$a.content}</li>
+        </ul>
+        {/if}
+    </body>
+</html>
