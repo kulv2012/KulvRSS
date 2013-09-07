@@ -1,0 +1,32 @@
+
+
+body {
+/*background-color: #CCE8CC;*/
+    background-color: #808080;
+    color:#000000;   
+}
+
+a {
+      text-decoration: none;
+      color: #000000;
+}
+
+
+.body_menu {
+    background-color: #808000;
+}
+
+li {
+    line-height:20px;
+}
+
+
+.td_mouseover{
+    background-color:#00FF00;
+    color:#FFFFFF;
+}
+
+.li_mouseover{
+    background-color:#00FFFF;
+    color:#FFFFFF;
+}
