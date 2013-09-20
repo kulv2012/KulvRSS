@@ -7,7 +7,7 @@ require_once("Myrss/Model/Mysql.php");
 class Myrss_Fetch_Article {
     private $mysql = null ;
     public $tableName = "ArticleInfo";
-    public $orderary = array("aid" => "desc",);
+    public $orderary = array("star" => "desc" ,"aid" => "desc",);
 
     public function __construct( ){  
 

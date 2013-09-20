@@ -6,6 +6,8 @@ require_once("Myrss/Fetch/Rss.php");
 require_once("Myrss/Fetch/Article.php");
 require_once("Myrss/Model/Http.php");
 require_once("Myrss/Model/UrlContenter.php");
+require_once('Myrss/Fetch/KeywordMonitor.php');
+require_once("Myrss/Model/Emailer.php");
 
 
 //程序入口
@@ -101,7 +103,12 @@ class MyrssAction {
             $this->insertArticle($rss, $ary);
 
         }*/
-        $xml = new SimpleXmlElement($data);
+        try {
+            $xml = new SimpleXmlElement($data);
+        }catch (Exception $e){
+            var_dump($e); 
+            return false;
+        }
         $ns = $xml->getNamespaces(true);
         foreach ($xml->channel->item as $item) {
             $article = array();
@@ -185,7 +192,23 @@ class MyrssAction {
         return FALSE ;
     }
     public function insertArticle($rss, $ary){
+        global $config ;
         global $g_updcount ;
+
+        $keym = new Myrss_Fetch_KeywordMonitor();
+        $res = $keym->checkKeywordMonitor($ary['title'], $ary['content']) ;
+        if($res !== FALSE){
+            $ary['star'] = $res['star'] ;
+            $email = $res['action'] ;
+            if( strpos($email, "@") !== false) {//发送邮件
+                $emailer = new Myrss_Model_Emailer($config['email']['smtp'], $config['email']['user'], $config['email']['pwd']) ;
+                $res = $emailer->SendMail( $email, "KulvRSS监控通知：".$ary['title'], $ary['content'] ); 
+                echo "关键词检测成功，发送邮件给$email, 结果：$res\n" ;
+            }
+        }
+        else {
+            $ary['star'] = 0 ;
+        }
 
         $res = $this->atl->addArticle($ary);
         if($res !== TRUE){

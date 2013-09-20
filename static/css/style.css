@@ -30,3 +30,26 @@ li {
     background-color:#00FFFF;
     color:#FFFFFF;
 }
+
+
+table
+{
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-right: auto;
+    margin-left: auto;
+    width: 800px;
+}
+th, td
+{
+    border: 1px solid #b5d6e6;
+    /*font-size: 12px;
+    font-weight: normal;
+    text-align: center;*/
+    vertical-align: middle;
+    height: 20px;
+}
+th
+{
+    background-color: Gray;
+}   

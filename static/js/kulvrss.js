@@ -107,3 +107,20 @@ function showDocumentModel(rssid, aid) {
         markReadStatus(rssid, aid, true );
     }
 }
+
+function deleteKeywordMonitor( id ){
+    $.post(
+            '/mis/subscribe.php' ,
+            {"op":"delete", "id":id},
+            function(data) {
+                if("ok" !=data){
+                    alert("deleteKeywordMonitor failed, error:"+data);
+                }
+                else {
+                    alert("deleteKeywordMonitor success");
+                    location.reload();
+                }
+            }
+            );
+
+}
