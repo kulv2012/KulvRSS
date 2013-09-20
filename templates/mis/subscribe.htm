@@ -1,0 +1,29 @@
+<html>
+    {include file="shareHeader.htm"}
+    <body>
+        <h2>你当前的关键词订阅为:</h2>
+        <table> 
+            <tr> <th>id</th> <th>关键词</th><th>权重</th><th>动作</th> <th>操作</th></tr>
+            {foreach $allkeys as $key}
+                <tr> 
+                    <td>{$key.id}</td>  
+                    <td>{$key.keyword}</td> 
+                    <td>{$key.star}</td>
+                    <td>{$key.action}</td>
+                    <td><button onclick="deleteKeywordMonitor({$key.id})">删除</button></td>
+                </tr>
+            {/foreach}
+        </table>
+        <br>
+        <form id="form" name="form" action="/mis/subscribe.php" method="post">
+            <label>关键词(可以是正则):</label>
+            <input type="text" name="szKeyword" style="width:200px;"></input>
+            <label>权重:</label>
+            <input type="text" id="" name="nWeight" style="width:50px;"></input>
+            <label>接收邮箱:</label>
+            <input type="text" id="" name="szMail" style="width:150px;"></input>
+            <input style="display:none" id="" name="op" value="add"></input>
+            <button type="submit">提交</button>
+        </form>
+    </body>
+</html>
