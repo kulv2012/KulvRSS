@@ -12,6 +12,7 @@ class MyrssAction extends Myrss_Action_Abstract {
     {
         $param = array(
             'rssid' => array('type' => 'int', 'default' => -1),
+            'szKeyword' => array('type' => 'string', 'default' => ""),
                 );
         parent::__construct($param);
         $this->atl = new Myrss_Fetch_Article();
@@ -23,11 +24,16 @@ class MyrssAction extends Myrss_Action_Abstract {
     public function Exec(){
         global $config ;
 
-        if($this->_param["rssid"] === -1){
-            $atllst = $this->atl->getUnreadArticle();
+        if( $this->_param["szKeyword"] === ""){
+            if($this->_param["rssid"] === -1){
+                $atllst = $this->atl->getUnreadArticle();
+            }
+            else {
+                $atllst = $this->atl->getAritcleInfoByRssid($this->_param["rssid"]) ;
+            }
         }
         else {
-            $atllst = $this->atl->getAritcleInfoByRssid($this->_param["rssid"]) ;
+            $atllst = $this->atl->SearchArticle($this->_param["szKeyword"], $this->_param["rssid"]) ;
         }
 
         $atllst = array_slice( $atllst , 0, 100) ;

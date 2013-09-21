@@ -7,7 +7,7 @@ require_once("Myrss/Model/Mysql.php");
 class Myrss_Fetch_Article {
     private $mysql = null ;
     public $tableName = "ArticleInfo";
-    public $orderary = array("star" => "desc" ,"aid" => "desc",);
+    public $orderary = array("isreaded" => "asc", "star" => "desc" ,"aid" => "desc",);
 
     public function __construct( ){  
 
@@ -64,6 +64,13 @@ class Myrss_Fetch_Article {
                 ) ;
     }
 
+    public function SearchArticle($keyword, $rssid){
+        $cond = array();
+        if( $rssid != -1){
+            $cond["rssid"] = $rssid ;
+        }
+        return $this->mysql->search($cond, "content", "%$keyword%" ) ;
+    }
 
 }
 

@@ -2,11 +2,19 @@
     {include file="shareHeader.htm"}
     
     <body>
-        <h2><a target="window_menu" href="/menu.php">趁着年轻的RSS</a></h2> 
+        <div>
+            <b><a target="window_menu" href="/menu.php">趁着年轻的RSS</a></b>
+        </div>
         <div align="right">
-            <a target="window_atllst" href="/mis/subscribe.php">关键词订阅</a>
+            | <a target="window_atllst" href="/mis/subscribe.php">关键词订阅</a>
             <a target="_blank" href="/mis/addOPML.php">增加RSS源</a>
             <a target="_blank" href="/mis/updateAllRss.php">更新所有RSS</a>
+            <br>
+
+            <form id="form" target="window_atllst" action="/atllst.php" method="get">
+                <input type="text" id="" name="szKeyword" style="width:150px;"></input>
+                <button type="submit">搜索</button>
+            </form>
         </div>
     </body>
 </html>

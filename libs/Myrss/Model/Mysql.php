@@ -86,21 +86,13 @@ class Myrss_Model_Mysql {
 		return $this->update($this->tableName, $condArr, $arr);
 	}
 
-	final public function getByPagination($pageCount, $pageSize, $condArr, $orderby, $DESC=TRUE)
-	{
-		$query = $this->db
-			->limit($pageSize, intval( ($pageCount - 1) * (int)$pageSize))
-			->orderby($orderby, (bool)$DESC ? 'DESC' : 'ASC');
-
-		if($condArr != array()) {
-			$query->where($condArr);
-		}
-
-		$ret = $query->get($this->tableName);
-
-		return $ret->result_array(FALSE);
-	}
-
-
+    public function search($condArr, $field, $match = '') {
+        $res = $this->db
+            ->from( $this->tableName )
+            ->where($condArr)
+            ->like( $field, $match, false )
+            ->get();
+        return $res->result_array(false);
+    }
 
 } // END class BaseDao
