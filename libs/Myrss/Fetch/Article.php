@@ -23,11 +23,11 @@ class Myrss_Fetch_Article {
         $res = $this->mysql->get($ary,  $this->orderary);
         return $res ;
     }
-    public function getAritcleInfoByRssid($rssid){
-        return $this->getAritcleInfo(array("rssid" => $rssid)) ;
+    public function getAritcleInfoByRssid($rssid, $lastupdtime){
+        return $this->getAritcleInfo(array("rssid" => $rssid, "addtime > " => "$lastupdtime" )) ;
     }
-    public function getUnreadArticle(){
-        return $this->getAritcleInfo(array("isreaded" =>0)) ;
+    public function getUnreadArticle( $lastupdtime ){
+        return $this->getAritcleInfo(array("isreaded" =>0, "addtime > " => "$lastupdtime")) ;
     }
 
     public function addArticle($ary){

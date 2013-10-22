@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2013-09-07 12:42:59
+<?php /* Smarty version Smarty-3.0.7, created on 2013-09-21 10:33:09
          compiled from "/home/wuhaiwen/webroot/KulvRSS/libs/Myrss/Action/../../../templates/head.htm" */ ?>
-<?php /*%%SmartyHeaderCode:647796538522aaed306c969-06735381%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:425903079523d05657afcc3-77402611%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '453211d24032828fdc939eb311d29f47b71c41e6' => 
     array (
       0 => '/home/wuhaiwen/webroot/KulvRSS/libs/Myrss/Action/../../../templates/head.htm',
-      1 => 1374333695,
+      1 => 1379678821,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '647796538522aaed306c969-06735381',
+  'nocache_hash' => '425903079523d05657afcc3-77402611',
   'function' => 
   array (
   ),
@@ -22,10 +22,19 @@ $_smarty_tpl->decodeProperties(array (
  echo $_template->getRenderedTemplate();?><?php unset($_template);?>
     
     <body>
-        <h2><a target="window_menu" href="/menu.php">趁着年轻的RSS</a></h2> 
+        <div>
+            <b><a target="window_menu" href="/menu.php">趁着年轻的RSS</a></b>
+        </div>
         <div align="right">
+            | <a target="window_atllst" href="/mis/subscribe.php">关键词订阅</a>
             <a target="_blank" href="/mis/addOPML.php">增加RSS源</a>
             <a target="_blank" href="/mis/updateAllRss.php">更新所有RSS</a>
+            <br>
+
+            <form id="form" target="window_atllst" action="/atllst.php" method="get">
+                <input type="text" id="" name="szKeyword" style="width:150px;"></input>
+                <button type="submit">搜索</button>
+            </form>
         </div>
     </body>
 </html>

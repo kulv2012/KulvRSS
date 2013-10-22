@@ -14,3 +14,5 @@ date
 echo "update end"
 
 cd $dir
+
+rm /tmp/sno*

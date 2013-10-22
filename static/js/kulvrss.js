@@ -124,3 +124,19 @@ function deleteKeywordMonitor( id ){
             );
 
 }
+function deleteRssById( rssid ){
+    $.post(
+            '/api/rss.php' ,
+            {"op":"delete", "rssid":rssid},
+            function(data) {
+                if("ok" !=data){
+                    alert("deleteRssById failed, error:"+data);
+                }
+                else {
+                    alert("deleteRssById success");
+                    location.reload();
+                }
+            }
+            );
+
+}

@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2013-09-07 12:42:58
+<?php /* Smarty version Smarty-3.0.7, created on 2013-09-20 20:00:18
          compiled from "/home/wuhaiwen/webroot/KulvRSS/libs/Myrss/Action/../../../templates/index.htm" */ ?>
-<?php /*%%SmartyHeaderCode:1449097295522aaed24b96a8-23080265%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:205083805523c38d2633c97-70519482%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'b960bdd36a49039c01ce78d6eec4ce3beb3562ec' => 
     array (
       0 => '/home/wuhaiwen/webroot/KulvRSS/libs/Myrss/Action/../../../templates/index.htm',
-      1 => 1374321513,
+      1 => 1379678401,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '1449097295522aaed24b96a8-23080265',
+  'nocache_hash' => '205083805523c38d2633c97-70519482',
   'function' => 
   array (
   ),
@@ -21,7 +21,7 @@ $_smarty_tpl->decodeProperties(array (
     <?php $_template = new Smarty_Internal_Template("shareHeader.htm", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
  echo $_template->getRenderedTemplate();?><?php unset($_template);?>
 
-    <frameset frameborder=1 frameSpacing=1 rows=80,* frameBorder=1 cols="">
+    <frameset frameborder=1 frameSpacing=1 rows=60,* frameBorder=1 cols="">
         <frame name=topFrame src="head.php" noResize scrolling=no >
         <frameset id="idvirtframeset" border=1 frameSpacing=0 frameBorder=yes cols=300,*>
             <frame id=f1 name=window_menu marginWidth=0 marginHeight=5 src="menu.php" frameborder=1>

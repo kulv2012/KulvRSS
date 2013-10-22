@@ -1,19 +1,19 @@
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <link href="./img/style.css" type="text/css" rel="stylesheet">
-    </head>
+    {include file="shareHeader.htm"}
 
     <body>
         <h1>你当前的RSS为:</h1>
-        <ul>
+        <table>
+            <tr> <th>id</th><th>名称</th><th>URL</th><th style="width:50px;">操作</th></tr>
             {foreach $rsses as $rss}
-                <li>
-                    <a target="_blank" href="/atllst.php?rssid={$rss.id}">{$rss.name}</a>
-                    <label>{$rss.feedurl}</label>
-                </li>
+                <tr>
+                    <td>{$rss.id}</td>
+                    <td><a target="_blank" href="/atllst.php?rssid={$rss.id}">{$rss.name}</a></td>
+                    <td>{$rss.feedurl}</td>
+                    <td><button onclick="deleteRssById({$rss.id})">删除</button></td>
+                </tr>
             {/foreach}
-        </ul>
+        </table>
         <form id="form" name="form" action="/mis/addOPML.php" method="post">
             <label style="display:block">我要直接输入一条URL以及名字</label>
             <label>URL:</label>

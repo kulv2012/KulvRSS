@@ -12,6 +12,7 @@ class MyrssAction extends Myrss_Action_Abstract {
     {
         $param = array(
             'rssid' => array('type' => 'int', 'default' => -1),
+            'lastupdtime' => array('type' => 'string', 'default' => "0000-00-00 00:00:00"),
             'szKeyword' => array('type' => 'string', 'default' => ""),
                 );
         parent::__construct($param);
@@ -25,18 +26,19 @@ class MyrssAction extends Myrss_Action_Abstract {
         global $config ;
 
         if( $this->_param["szKeyword"] === ""){
+            $lastupdtime = $this->_param["lastupdtime"] ;
             if($this->_param["rssid"] === -1){
-                $atllst = $this->atl->getUnreadArticle();
+                $atllst = $this->atl->getUnreadArticle( $lastupdtime );
             }
             else {
-                $atllst = $this->atl->getAritcleInfoByRssid($this->_param["rssid"]) ;
+                $atllst = $this->atl->getAritcleInfoByRssid($this->_param["rssid"], $lastupdtime) ;
             }
         }
         else {
             $atllst = $this->atl->SearchArticle($this->_param["szKeyword"], $this->_param["rssid"]) ;
         }
 
-        $atllst = array_slice( $atllst , 0, 100) ;
+        $atllst = array_slice( $atllst , 0, 200) ;
         $this->_smarty->assign("atllst", $atllst);
         $this->_smarty->assign("atllstContent", json_encode($atllst));
         return TRUE ;

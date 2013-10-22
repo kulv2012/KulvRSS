@@ -22,6 +22,10 @@ class Myrss_Fetch_Rss {
         $res = $this->mysql->get(array("id" => $id ));
         return $res ;
     }
+    public function deleteRssById( $id ){
+        $res = $this->mysql->del(array("id" => $id ));
+        return $res ;
+    }
 
     public function addRss($ary){
         $res = $this->mysql->add($ary);

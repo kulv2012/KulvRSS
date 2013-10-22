@@ -31,8 +31,26 @@ CREATE TABLE `ArticleInfo` (
   `pubdate` varchar(64) COLLATE utf8_bin DEFAULT NULL,
   `description` mediumtext COLLATE utf8_bin,
   `content` mediumtext COLLATE utf8_bin,
+  `star` int(11) DEFAULT '0',
+  `addtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`rssid`,`aid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `KeywordMonitor`
+--
+
+DROP TABLE IF EXISTS `KeywordMonitor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `KeywordMonitor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `keyword` varchar(128) COLLATE utf8_bin NOT NULL,
+  `action` varchar(64) COLLATE utf8_bin DEFAULT '0',
+  `star` int(11) DEFAULT '10',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,7 +68,7 @@ CREATE TABLE `RssInfo` (
   `feedurl` varchar(256) COLLATE utf8_bin DEFAULT NULL,
   `feedtype` varchar(16) COLLATE utf8_bin DEFAULT 'rss',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=334 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=339 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -62,4 +80,4 @@ CREATE TABLE `RssInfo` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-09-07 12:54:13
+-- Dump completed on 2013-10-23  1:40:02
