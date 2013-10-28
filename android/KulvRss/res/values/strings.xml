@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">KulvRss</string>
+    <string name="title_artlst_list">文章列表</string>
+    <string name="title_artlst_detail">文章内容</string>
+    <string name="tmp">临时tmp</string>
+
+</resources>

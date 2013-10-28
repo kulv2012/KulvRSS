@@ -14,6 +14,7 @@ class MyrssAction extends Myrss_Action_Abstract {
             'rssid' => array('type' => 'int', 'default' => -1),
             'lastupdtime' => array('type' => 'string', 'default' => "0000-00-00 00:00:00"),
             'szKeyword' => array('type' => 'string', 'default' => ""),
+            'nocontent' => array('type' => 'string', 'default' => "1"),
                 );
         parent::__construct($param);
         $this->atl = new Myrss_Fetch_Article();
@@ -39,6 +40,12 @@ class MyrssAction extends Myrss_Action_Abstract {
         }
 
         $atllst = array_slice( $atllst , 0, 200) ;
+        if( $this->_param["nocontent"] === "1"){
+            foreach($atllst as $id => $a ){
+                unset($atllst[$id]["description"]) ;
+                unset($atllst[$id]["content"]) ;
+            }
+        }
         echo json_encode($atllst) ;
         die();
         //$this->_smarty->assign("atllst", $atllst);
