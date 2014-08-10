@@ -69,7 +69,11 @@ class Myrss_Fetch_Article {
         if( $rssid != -1){
             $cond["rssid"] = $rssid ;
         }
-        return $this->mysql->search($cond, "content", "%$keyword%" ) ;
+        $list = $this->mysql->search($cond, "content", "%$keyword%" ) ;
+        //usort($list, function($aa,$bb){ return $bb['addtime'] - $aa['addtime'];});
+        function cmp ($aa,$bb){ return $bb['addtime'] - $aa['addtime'];}
+        usort($list, "cmp");
+        return $list ;
     }
 
 }
