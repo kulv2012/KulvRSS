@@ -21,7 +21,7 @@ class Myrss_Model_Emailer {
             $mailer = Swift_Mailer::newInstance($transport);
 
             $message = Swift_Message::newInstance();
-            $message->setFrom(array( $this->user => 'KulvRSS舆情检测'));
+            $message->setFrom(array( $this->user => 'KL'));
             $message->setTo( explode(",", $to) );
             $message->setSubject($subject ) ;
             $message->setBody($content, 'text/html') ;
