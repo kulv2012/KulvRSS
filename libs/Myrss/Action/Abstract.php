@@ -33,6 +33,9 @@ abstract class Myrss_Action_Abstract  {
 
         foreach ($param as $key => $desc)
             $this->_check($key, $desc);
+
+        global $devicetype ;
+        $this->_smarty->assign("devicetype", $devicetype);
     }
     public function execute() {
         $this->Exec();

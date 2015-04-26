@@ -1,6 +1,7 @@
 <html>
     {include file="shareHeader.htm"}
 
+            {if ($devicetype == "web") || ($devicetype == "ipad")}
     <frameset frameborder=1 frameSpacing=1 rows=60,* frameBorder=1 cols="">
         <frame name=topFrame src="head.php" noResize scrolling=no >
         <frameset id="idvirtframeset" border=1 frameSpacing=0 frameBorder=yes cols=300,*>
@@ -12,5 +13,13 @@
             </frameset>-->
         </frameset>
     </frameset>
+            {else}
+    <frameset frameborder=1 frameSpacing=1 rows=60,* frameBorder=1 cols="">
+        <frame name=topFrame src="head.php" noResize scrolling=no >
+        <frameset id="idvirtframeset" border=1 frameSpacing=0 frameBorder=yes >
+            <frame id=f2 marginWidth=0 marginHeight=5 name=window_atllst src="atllst.php">
+        </frameset>
+    </frameset>
+            {/if}
 
 </html>

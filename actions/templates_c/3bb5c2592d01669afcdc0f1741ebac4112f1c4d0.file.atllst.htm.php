@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2013-09-20 18:35:43
+<?php /* Smarty version Smarty-3.0.7, created on 2015-04-26 17:15:19
          compiled from "/home/wuhaiwen/webroot/KulvRSS/libs/Myrss/Action/../../../templates/atllst.htm" */ ?>
-<?php /*%%SmartyHeaderCode:979375760523c24ffaaad28-34850766%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:1782261672553caca795c827-74434275%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '3bb5c2592d01669afcdc0f1741ebac4112f1c4d0' => 
     array (
       0 => '/home/wuhaiwen/webroot/KulvRSS/libs/Myrss/Action/../../../templates/atllst.htm',
-      1 => 1379670840,
+      1 => 1430039700,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '979375760523c24ffaaad28-34850766',
+  'nocache_hash' => '1782261672553caca795c827-74434275',
   'function' => 
   array (
   ),
@@ -37,7 +37,7 @@ if ($_smarty_tpl->_count($_from) > 0){
 , true)">
                     <a href="#" onclick="stopBubble(event);showDocumentModel(<?php echo $_smarty_tpl->tpl_vars['a']->value['rssid'];?>
 , <?php echo $_smarty_tpl->tpl_vars['a']->value['aid'];?>
-)">
+);">
                         <font id="listFont<?php echo $_smarty_tpl->tpl_vars['a']->value['aid'];?>
 " <?php if ($_smarty_tpl->tpl_vars['a']->value['isreaded']==0){?> color=blue <?php }else{ ?> size=2px <?php }?> >
                             .<?php echo $_smarty_tpl->tpl_vars['a']->value['title'];?>
@@ -45,8 +45,8 @@ if ($_smarty_tpl->_count($_from) > 0){
                         </font>
                     </a>
                 </td>
-                <td align="right" width="200px" onclick="stopBubble(event);">
-                    <div style="background-color:Aqua;layout:fixed;">
+                <td align="right"  onclick="stopBubble(event);">
+                    <div style="background-color:Aqua;layout:fixed;white-space:nowrap;">
                     <?php if ($_smarty_tpl->tpl_vars['a']->value['isreaded']==0){?>
                         <button id="idMarkStatus<?php echo $_smarty_tpl->tpl_vars['a']->value['aid'];?>
 " onclick="markReadStatus(<?php echo $_smarty_tpl->tpl_vars['a']->value['rssid'];?>
@@ -58,13 +58,15 @@ if ($_smarty_tpl->_count($_from) > 0){
 , <?php echo $_smarty_tpl->tpl_vars['a']->value['aid'];?>
 , false)">UnRd</button>
                     <?php }?>
+<?php if (($_smarty_tpl->getVariable('devicetype')->value=="web")||($_smarty_tpl->getVariable('devicetype')->value=="ipad")){?>
                         <button onclick="OpenArticleLink(<?php echo $_smarty_tpl->tpl_vars['a']->value['rssid'];?>
 , <?php echo $_smarty_tpl->tpl_vars['a']->value['aid'];?>
 , '<?php echo $_smarty_tpl->tpl_vars['a']->value['link'];?>
 ')">SrcLink</button>
-                        <button onclick="sendToKindle(<?php echo $_smarty_tpl->tpl_vars['a']->value['rssid'];?>
+                        <!--<button onclick="sendToKindle(<?php echo $_smarty_tpl->tpl_vars['a']->value['rssid'];?>
 , <?php echo $_smarty_tpl->tpl_vars['a']->value['aid'];?>
-)">Kindle</button>
+)">Kindle</button>-->
+<?php }?>
                     </div>
                 </td>
                 </tr>
@@ -89,6 +91,7 @@ if ($_smarty_tpl->_count($_from) > 0){
 <script type="text/javascript">
     var atllstContent = <?php echo $_smarty_tpl->getVariable('atllstContent')->value;?>
 ;
+
 
 function OpenArticleLink( rssid, aid, link ){
     markReadStatus(rssid, aid, true );

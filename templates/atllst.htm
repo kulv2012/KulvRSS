@@ -9,21 +9,23 @@
             {foreach $atllst as $a}
                 <tr  border=0 onmouseover="this.className='td_mouseover';" onmouseout="this.className='';">
                 <td onclick="markReadStatus({$a.rssid}, {$a.aid}, true)">
-                    <a href="#" onclick="stopBubble(event);showDocumentModel({$a.rssid}, {$a.aid})">
+                    <a href="#" onclick="stopBubble(event);showDocumentModel({$a.rssid}, {$a.aid});">
                         <font id="listFont{$a.aid}" {if $a.isreaded == 0} color=blue {else} size=2px {/if} >
                             .{$a.title}
                         </font>
                     </a>
                 </td>
-                <td align="right" width="200px" onclick="stopBubble(event);">
-                    <div style="background-color:Aqua;layout:fixed;">
+                <td align="right"  onclick="stopBubble(event);">
+                    <div style="background-color:Aqua;layout:fixed;white-space:nowrap;">
                     {if $a.isreaded == 0}
                         <button id="idMarkStatus{$a.aid}" onclick="markReadStatus({$a.rssid}, {$a.aid}, true)">Read</button>
                     {else}
                         <button id="idMarkStatus{$a.aid}" onclick="markReadStatus({$a.rssid}, {$a.aid}, false)">UnRd</button>
                     {/if}
+{if ($devicetype == "web") || ($devicetype == "ipad")}
                         <button onclick="OpenArticleLink({$a.rssid}, {$a.aid}, '{$a.link}')">SrcLink</button>
-                        <button onclick="sendToKindle({$a.rssid}, {$a.aid})">Kindle</button>
+                        <!--<button onclick="sendToKindle({$a.rssid}, {$a.aid})">Kindle</button>-->
+{/if}
                     </div>
                 </td>
                 </tr>
@@ -47,6 +49,7 @@
 
 <script type="text/javascript">
     var atllstContent = {$atllstContent};
+
 
 function OpenArticleLink( rssid, aid, link ){
     markReadStatus(rssid, aid, true );

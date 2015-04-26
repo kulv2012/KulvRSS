@@ -12,9 +12,12 @@ function getElapsTime() {
 } 
 getElapsTime();
 
+
 define('MYRSS_ROOT_PATH', dirname(__FILE__));
 set_include_path(get_include_path() . PATH_SEPARATOR . MYRSS_ROOT_PATH . '/libs');
 
+require_once("Myrss/Utils/CCCommon.class.php");
+$devicetype = CCCommon::get_device_type() ;
 
 $statics = "" ;
 

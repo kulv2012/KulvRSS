@@ -70,14 +70,13 @@ function sendToKindle( rssid, aid ){
 
 var atllstContent;
 function showDocumentModel(rssid, aid) {
-
     for(i=0; i< atllstContent.length; i++){
         atl = atllstContent[i] ;
         if( atl['rssid'] != rssid || atl['aid'] != aid )
             continue ;
         //缩小memu，以备放大阅读框
         var tmp = top.idvirtframeset.cols ;
-        top.idvirtframeset.cols = "0,*";
+        //top.idvirtframeset.cols = "0,*";
 
         var dialog_h = $(document).height();
         var dialog_w = $(document).width();
@@ -91,7 +90,7 @@ function showDocumentModel(rssid, aid) {
             ///height: dialog_h,
             width: dialog_w,
             modal: true,
-            position: "top",
+            position: { my:'top', at:'top'},
             open: function(event, ui){ },
             close: function(event, ui){ },
             beforeClose: function(event, ui) { 

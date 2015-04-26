@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2013-09-20 20:00:18
+<?php /* Smarty version Smarty-3.0.7, created on 2015-04-26 17:06:19
          compiled from "/home/wuhaiwen/webroot/KulvRSS/libs/Myrss/Action/../../../templates/index.htm" */ ?>
-<?php /*%%SmartyHeaderCode:205083805523c38d2633c97-70519482%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:946968533553caa8b420be0-78050505%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'b960bdd36a49039c01ce78d6eec4ce3beb3562ec' => 
     array (
       0 => '/home/wuhaiwen/webroot/KulvRSS/libs/Myrss/Action/../../../templates/index.htm',
-      1 => 1379678401,
+      1 => 1430039169,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '205083805523c38d2633c97-70519482',
+  'nocache_hash' => '946968533553caa8b420be0-78050505',
   'function' => 
   array (
   ),
@@ -21,6 +21,7 @@ $_smarty_tpl->decodeProperties(array (
     <?php $_template = new Smarty_Internal_Template("shareHeader.htm", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
  echo $_template->getRenderedTemplate();?><?php unset($_template);?>
 
+            <?php if (($_smarty_tpl->getVariable('devicetype')->value=="web")||($_smarty_tpl->getVariable('devicetype')->value=="ipad")){?>
     <frameset frameborder=1 frameSpacing=1 rows=60,* frameBorder=1 cols="">
         <frame name=topFrame src="head.php" noResize scrolling=no >
         <frameset id="idvirtframeset" border=1 frameSpacing=0 frameBorder=yes cols=300,*>
@@ -32,5 +33,13 @@ $_smarty_tpl->decodeProperties(array (
             </frameset>-->
         </frameset>
     </frameset>
+            <?php }else{ ?>
+    <frameset frameborder=1 frameSpacing=1 rows=60,* frameBorder=1 cols="">
+        <frame name=topFrame src="head.php" noResize scrolling=no >
+        <frameset id="idvirtframeset" border=1 frameSpacing=0 frameBorder=yes >
+            <frame id=f2 marginWidth=0 marginHeight=5 name=window_atllst src="atllst.php">
+        </frameset>
+    </frameset>
+            <?php }?>
 
 </html>

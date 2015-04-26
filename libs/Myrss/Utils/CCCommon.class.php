@@ -120,6 +120,20 @@ class CCCommon // used as a namespace
             return $strData;    
         }
     }
+    function get_device_type(){
+        $agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+        $mobile_type = 'other';
+        if(strpos($agent, 'iphone') ){
+            $mobile_type = 'iphone' ;
+        }else if( strpos($agent, 'ipad')){
+            $mobile_type = 'ipad';
+        }else if( strpos($agent, 'android')){
+            $mobile_type = "android" ;
+        }else {
+            $mobile_type = "web" ;
+        }
+        return $mobile_type;
+    }
 }
 
 
