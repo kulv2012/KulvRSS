@@ -16,7 +16,8 @@
             {else}
     <frameset frameborder=1 frameSpacing=1 rows=60,* frameBorder=1 cols="">
         <frame name=topFrame src="head.php" noResize scrolling=no >
-        <frameset id="idvirtframeset" border=1 frameSpacing=0 frameBorder=yes >
+        <frameset id="idvirtframeset" border=1 frameSpacing=0 frameBorder=yes cols=0,*>
+            <frame id=f1 name=window_menu marginWidth=0 marginHeight=5 src="menu.php" frameborder=1>
             <frame id=f2 marginWidth=0 marginHeight=5 name=window_atllst src="atllst.php">
         </frameset>
     </frameset>

@@ -76,7 +76,7 @@ function showDocumentModel(rssid, aid) {
             continue ;
         //缩小memu，以备放大阅读框
         var tmp = top.idvirtframeset.cols ;
-        //top.idvirtframeset.cols = "0,*";
+        top.idvirtframeset.cols = "0,*";
 
         var dialog_h = $(document).height();
         var dialog_w = $(document).width();
