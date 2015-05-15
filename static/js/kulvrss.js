@@ -153,3 +153,8 @@ function deleteRssById( rssid ){
             );
 
 }
+
+function OpenArticleLink( rssid, aid, link ){
+    markReadStatus(rssid, aid, true );
+    window.open(link, '_blank');
+}

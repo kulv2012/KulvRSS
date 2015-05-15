@@ -2,9 +2,14 @@
 
     {include file="shareHeader.htm"}
 
-    <body class="body_class">
+    <body id="idbody" class="body_class">
 
-        <div id="dialog-modal" title="趁着年轻-RSS" style="display:none;">
+        <div id="dialog-modal" title="趁着年轻-RSS" style="display:none;width:800px">
+        <div style="display:block">
+            <br/>
+            <button style='align:left' onclick="showDocumentModel(curitem, -1);">----Prev------</button>
+            <button style='float: right;' onclick="showDocumentModel(curitem, 1);">------Next---------</button>
+        </div>
             <ul>
                 <li >
                     <h3> 
@@ -69,8 +74,13 @@
         }
     });
 
-    function OpenArticleLink( rssid, aid, link ){
-        markReadStatus(rssid, aid, true );
-        window.open(link, '_blank');
-    }
+
+
+$("#idbody").live('swipeleft', function() {  
+        alert("aaa");
+        }) ;
+
+
+
+
 </script>
