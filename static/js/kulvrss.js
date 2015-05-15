@@ -69,42 +69,56 @@ function sendToKindle( rssid, aid ){
 }
 
 var atllstContent;
-function showDocumentModel(rssid, aid) {
-    for(i=0; i< atllstContent.length; i++){
-        atl = atllstContent[i] ;
-        if( atl['rssid'] != rssid || atl['aid'] != aid )
-            continue ;
-        //缩小memu，以备放大阅读框
-        var tmp = top.idvirtframeset.cols ;
-        top.idvirtframeset.cols = "0,*";
-
-        var dialog_h = $(document).height();
-        var dialog_w = $(document).width();
-        //dialog_h = dialog_h>1500 ? 1500 : dialog_h ;
-        dialog_w = dialog_w>1000 ? 1000 : dialog_w ;
-        $('#idTitle').html(atl['title']) ;
-        $('#idTitle').attr("href", atl['link']) ;
-        $('#idContent').html(atl['content']) ;
-        $('#dialog-modal').dialog({
-            title: "趁着年轻-RSS ["+atl['title']+"]" , 
-            ///height: dialog_h,
-            width: dialog_w,
-            modal: true,
-            position: { my:'top', at:'top'},
-            open: function(event, ui){ },
-            close: function(event, ui){ },
-            beforeClose: function(event, ui) { 
-                top.idvirtframeset.cols = tmp; 
-                },
-            buttons: {
-                Close: function() {
-                    $( this ).dialog( "close" );
-                }
-            }
-        });
-        //设置为已读状态
-        markReadStatus(rssid, aid, true );
+var curitem ;
+function showDocumentModel(id, step) {
+    if( id == -1){
+        $('#dialog-modal').css("display", "none");
+        $('#articlelist').css("display", "block");
+        return ;
     }
+    curitem = id + step ;
+    if( curitem < 0) 
+        curitem = 0 ;
+    atl = atllstContent[ curitem ] ;
+    $('#idTitle').html(atl['title']) ;
+    $('#idTitle').attr("href", atl['link']) ;
+    $('#idContent').html(atl['content']) ;
+
+    $('#dialog-modal').css("display", "block"); 
+    $('#articlelist').css("display", "none"); 
+
+    /*//缩小memu，以备放大阅读框
+    var tmp = top.idvirtframeset.cols ;
+    //top.idvirtframeset.cols = "0,*";
+
+    var dialog_h = $(document).height();
+    var dialog_w = $(document).width();
+    //dialog_h = dialog_h>1500 ? 1500 : dialog_h ;
+    dialog_w = dialog_w>1000 ? 1000 : dialog_w ;
+    $('#idTitle').html(atl['title']) ;
+    $('#idTitle').attr("href", atl['link']) ;
+    $('#idContent').html(atl['content']) ;
+    $('#dialog-modal').dialog({
+        title: "趁着年轻-RSS ["+atl['title']+"]" , 
+        ///height: dialog_h,
+        width: dialog_w,
+        modal: true,
+        position: { my:'left top', at:'left top', of: window.parent},
+        //position: { my: "center", at: "left+0px top+0px ", of: window  } ,
+        open: function(event, ui){ },
+        close: function(event, ui){ },
+        beforeClose: function(event, ui) { 
+            top.idvirtframeset.cols = tmp; 
+            },
+        buttons: {
+            Close: function() {
+                $( this ).dialog( "close" );
+            }
+        }
+    });
+    */
+    //设置为已读状态
+    markReadStatus(atl.rssid, atl.aid, true );
 }
 
 function deleteKeywordMonitor( id ){

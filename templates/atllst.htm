@@ -2,46 +2,56 @@
 
     {include file="shareHeader.htm"}
 
-    <body>
-        <table style="width:100%;margin:0;cellspacing:0;border:0;">
-            <thead></thead>
-            <tbody>
-            {foreach $atllst as $a}
-                <tr  border=0 onmouseover="this.className='td_mouseover';" onmouseout="this.className='';">
-                <td onclick="markReadStatus({$a.rssid}, {$a.aid}, true)">
-                    <a href="#" onclick="stopBubble(event);showDocumentModel({$a.rssid}, {$a.aid});">
-                        <font id="listFont{$a.aid}" {if $a.isreaded == 0} color=blue {else} size=2px {/if} >
-                            .{$a.title}
-                        </font>
-                    </a>
-                </td>
-                <td align="right"  onclick="stopBubble(event);">
-                    <div style="background-color:Aqua;layout:fixed;white-space:nowrap;">
-                    {if $a.isreaded == 0}
-                        <button id="idMarkStatus{$a.aid}" onclick="markReadStatus({$a.rssid}, {$a.aid}, true)">Read</button>
-                    {else}
-                        <button id="idMarkStatus{$a.aid}" onclick="markReadStatus({$a.rssid}, {$a.aid}, false)">UnRd</button>
-                    {/if}
-{if ($devicetype == "web") || ($devicetype == "ipad")}
-                        <button onclick="OpenArticleLink({$a.rssid}, {$a.aid}, '{$a.link}')">SrcLink</button>
-                        <!--<button onclick="sendToKindle({$a.rssid}, {$a.aid})">Kindle</button>-->
-{/if}
-                    </div>
-                </td>
-                </tr>
-            {/foreach}
-            </tbody>
+    <body class="body_class">
+
+        <div id="dialog-modal" title="趁着年轻-RSS" style="display:none;">
+            <ul>
+                <li >
+                    <h3> 
+                        <a target="_blank" href="" id="idTitle">titles</a>
+                    </h3>
+                </li>
+                <hr>
+                <li id="idContent">abba </li>
+                <hr>
+                <li id="legal"><font color=dark size=1px>趁着年轻注：我知道提取全文是不对的，但我只是用做个人学习用途哦。<br>"如果RSS源站没用提供全文RSS，我会自己提取网页全文进行显示，超越了网站的授权范围使用blog内容，构成了著作权侵权和不正当竞争。"<br>好吧，为了科研与学习目的，不构成侵权</font></li>
+            </ul>
+            <button style='align:right' onclick="showDocumentModel(-1, 0);">关闭阅读模式</button>
+        </div>
+
+        <div id="articlelist" style="display:block">
+            <table style="width:100%;margin:0;cellspacing:0;border:0;">
+                <thead></thead>
+                <tbody>
+    {assign var="i" value="0"}
+                {foreach $atllst as $a}
+                    <tr  border=0 onmouseover="this.className='td_mouseover';" onmouseout="this.className='';">
+                    <td onclick="stopBubble(event);markReadStatus({$a.rssid}, {$a.aid}, true)">
+                        <a href="#" onclick="stopBubble(event);showDocumentModel({$i}, 0);">
+                            <font id="listFont{$a.aid}" {if $a.isreaded == 0} color=blue {else} size=2px {/if} >
+                                .{$a.title}
+                            </font>
+                        </a>
+                    </td>
+                    <td align="right"  onclick="stopBubble(event);">
+                        <div style="background-color:Aqua;layout:fixed;white-space:nowrap;">
+                        {if $a.isreaded == 0}
+                            <button id="idMarkStatus{$a.aid}" onclick="markReadStatus({$a.rssid}, {$a.aid}, true)">Read</button>
+                        {else}
+                            <button id="idMarkStatus{$a.aid}" onclick="markReadStatus({$a.rssid}, {$a.aid}, false)">UnRd</button>
+                        {/if}
+        {if ($devicetype == "web") || ($devicetype == "ipad")}
+                                <button onclick="OpenArticleLink({$a.rssid}, {$a.aid}, '{$a.link}')">SrcLink</button>
+                                <!--<button onclick="sendToKindle({$a.rssid}, {$a.aid})">Kindle</button>-->
+        {/if}
+                        </div>
+                    </td>
+                    </tr>
+                {$i=$i+1}
+                {/foreach}
+                </tbody>
             </table>
-        </ul>
-<div id="dialog-modal" title="趁着年轻-RSS" style="display:none;">
-    <ul>
-        <li ><h3> <a target="_blank" href="" id="idTitle">titles</a></h3></li>
-        <hr>
-        <li id="idContent">abba </li>
-        <hr>
-        <li id="legal"><font color=grey size=1px>趁着年轻注：我知道提取全文是不对的，但我只是用做个人学习用途哦。<br>"如果RSS源站没用提供全文RSS，我会自己提取网页全文进行显示，超越了网站的授权范围使用blog内容，构成了著作权侵权和不正当竞争。"<br>好吧，为了科研与学习目的，不构成侵权</font></li>
-    </ul>
-</div>
+        </div>
 
     </body>
 </html>
@@ -50,9 +60,17 @@
 <script type="text/javascript">
     var atllstContent = {$atllstContent};
 
+    var curitem = 0 ;
+    $(document).keydown(function(event){ 
+        if( 37 == event.keyCode){
+            showDocumentModel(curitem, -1 ) ;
+        }else if( 39 == event.keyCode){
+            showDocumentModel(curitem, 1 ) ;
+        }
+    });
 
-function OpenArticleLink( rssid, aid, link ){
-    markReadStatus(rssid, aid, true );
-    window.open(link, '_blank');
-}
+    function OpenArticleLink( rssid, aid, link ){
+        markReadStatus(rssid, aid, true );
+        window.open(link, '_blank');
+    }
 </script>
