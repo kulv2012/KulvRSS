@@ -29,6 +29,10 @@ class Myrss_Fetch_Article {
     public function getUnreadArticle( $lastupdtime ){
         return $this->getAritcleInfo(array("isreaded" =>0, "addtime > " => "$lastupdtime")) ;
     }
+    public function syncArticle( $lastupdtime ){
+        return $this->getAritcleInfo(array("addtime > " => "$lastupdtime")) ;
+    }
+
 
     public function addArticle($ary){
 

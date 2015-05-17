@@ -202,7 +202,7 @@ class MyrssAction {
             $email = $res['action'] ;
             if( strpos($email, "@") !== false) {//发送邮件
                 $emailer = new Myrss_Model_Emailer($config['email']['smtp'], $config['email']['user'], $config['email']['pwd']) ;
-                $res = $emailer->SendMail( $email, "KulvRSS监控通知：".$ary['title'], $ary['content'] ); 
+                $res = $emailer->SendMail( $email, "Kl:".$ary['title'], $ary['content'] ); 
                 echo "关键词检测成功，发送邮件给$email, 结果：$res\n" ;
             }
         }

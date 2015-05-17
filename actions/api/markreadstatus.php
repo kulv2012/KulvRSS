@@ -15,6 +15,7 @@ class MyrssAction extends Myrss_Action_Abstract {
             'rssid' => array('type' => 'int', 'default' => -1),
             'aid' => array('type' => 'int', 'default' => -1),
             'isreaded' => array('type' => 'int', 'default' => 0),
+            'list' => array('type' => 'string', 'default' => ""),
                 );
         parent::__construct($param);
         $this->atl = new Myrss_Fetch_Article();        
@@ -27,11 +28,19 @@ class MyrssAction extends Myrss_Action_Abstract {
     public function Exec(){
         global $config ;
         $ret = "" ;
-        if($this->_param["rssid"] === -1 ){
-            $ret = "failed";
+        if($this->_param["rssid"] === -1 && $this->_param['list'] != "" ){
+            $list = json_decode($this->_param['list'], true) ;
+            foreach($list as $l){
+                list($rssid, $aid, $isreaded) = explode("_", $l) ;
+                $isreaded = $isreaded == 1 ? 1 : 0 ;
+                $this->atl->markStatus($rssid, $aid , $isreaded);
+                $this->rss->autoUpdateUnreadCount( $rssid) ;
+            }
+            $ret = "ok" ;
         }
         else {
             $isreaded = $this->_param["isreaded"] ;
+
             $isreaded = $isreaded == 1 ? 1 : 0 ;
             $this->atl->markStatus($this->_param["rssid"], $this->_param["aid"] , $isreaded);
             $this->rss->autoUpdateUnreadCount( $this->_param['rssid'] );

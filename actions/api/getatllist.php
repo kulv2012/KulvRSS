@@ -29,7 +29,7 @@ class MyrssAction extends Myrss_Action_Abstract {
         if( $this->_param["szKeyword"] === ""){
             $lastupdtime = $this->_param["lastupdtime"] ;
             if($this->_param["rssid"] === -1){
-                $atllst = $this->atl->getUnreadArticle($lastupdtime);
+                $atllst = $this->atl->syncArticle($lastupdtime);
             }
             else {
                 $atllst = $this->atl->getAritcleInfoByRssid($this->_param["rssid"], $lastupdtime) ;
