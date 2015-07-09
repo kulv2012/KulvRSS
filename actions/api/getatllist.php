@@ -39,7 +39,7 @@ class MyrssAction extends Myrss_Action_Abstract {
             $atllst = $this->atl->SearchArticle($this->_param["szKeyword"], $this->_param["rssid"]) ;
         }
 
-        $atllst = array_slice( $atllst , 0, 200) ;
+        $atllst = array_slice( $atllst , 0, 300) ;
         if( $this->_param["nocontent"] === "1"){
             foreach($atllst as $id => $a ){
                 unset($atllst[$id]["description"]) ;
