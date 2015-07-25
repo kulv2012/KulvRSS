@@ -19,12 +19,12 @@ class Myrss_Fetch_Article {
         $res = $this->mysql->get(array(), $this->orderary);
         return $res ;
     }
-    public function getAritcleInfo($ary){
-        $res = $this->mysql->get($ary,  $this->orderary);
+    public function getAritcleInfo($ary,  $limit = 500 ){
+        $res = $this->mysql->get($ary,  $this->orderary, false, $limit );
         return $res ;
     }
-    public function getAritcleInfoByRssid($rssid, $lastupdtime){
-        return $this->getAritcleInfo(array("rssid" => $rssid, "addtime > " => "$lastupdtime" )) ;
+    public function getAritcleInfoByRssid($rssid, $lastupdtime, $limit = 500 ){
+        return $this->getAritcleInfo(array("rssid" => $rssid, "addtime > " => "$lastupdtime" ), 500 ) ;
     }
     public function getUnreadArticle( $lastupdtime ){
         return $this->getAritcleInfo(array("isreaded" =>0, "addtime > " => "$lastupdtime")) ;

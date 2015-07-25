@@ -41,13 +41,16 @@ class Myrss_Model_Mysql {
 		return $this->remove($this->tableName, $condArr);
 	}
 
-	final public function select($tblName, $condArr, $orderarr= FALSE) {
+	final public function select($tblName, $condArr, $orderarr= FALSE, $limit = false , $offset = false) {
 
 		$status = $this->db
 			->from($tblName);
 		if(is_array($orderarr) && count($orderarr)) {
 			$status->orderby($orderarr);
 		}
+        if( $limit != false){
+            $status->limit( $limit, $offset );
+        }
 		$ret = $status->where($condArr)
 			->select()
 			->get();
