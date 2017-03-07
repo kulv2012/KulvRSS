@@ -4,6 +4,8 @@ echo '<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
        <META HTTP-EQUIV="Expires" CONTENT="-1">';
 	
 $totalprice = isset( $_REQUEST['totalprice'] ) ? intval($_REQUEST['totalprice'] ) : 300 ;
+$downpayment = isset( $_REQUEST['downpayment'] ) ? $_REQUEST['downpayment'] : 0.35 ;
+$valuerate = isset( $_REQUEST['valuerate'] ) ? $_REQUEST['valuerate'] : 0.95 ;
 $loantype = isset( $_REQUEST['loantype'] ) ?  $_REQUEST['loantype'] : "business" ;
 
 ?>
@@ -12,6 +14,8 @@ $loantype = isset( $_REQUEST['loantype'] ) ?  $_REQUEST['loantype'] : "business"
 
 <input name="type" value='addclass' type='hidden' id="input1">
 	成交价:<input type="text" name="totalprice" id="input1" value='<?=$totalprice?>'><br>
+	首付比例:<input type="text" name="downpayment" id="input1" value='<?=$downpayment?>'><br>
+	评估比例:<input type="text" name="valuerate" id="input1" value='<?=$valuerate?>'><br>
 	
 	<input type="checkbox" name="isfileone" checked="checked" >满五唯一<br/>
 
@@ -26,13 +30,14 @@ $loantype = isset( $_REQUEST['loantype'] ) ?  $_REQUEST['loantype'] : "business"
 
 
 function getPriceTable( $totalprice, $loantype){
-	
+    global $downpayment  ;	
+    global $valuerate ;//评估比例，比如95评估，满评等
 	$dataary = array() ;
 	if( 1|| $loantype == 'business'){
 		$data = array() ;
 		$data["成交价"] = $totalprice;
-		$data["合同价"] = $totalprice*0.95 ;
-		$data["贷款额度"] = $data["合同价"]*0.7 ;
+		$data["合同价"] = $totalprice* $valuerate ;
+		$data["贷款额度"] = $data["合同价"]*( 1 - $downpayment ) ;
 		$data["纯首付"] = $totalprice - $data["贷款额度"];
 
 		$data["契税"] = $data["合同价"]*0.01 ;
@@ -51,8 +56,8 @@ function getPriceTable( $totalprice, $loantype){
 	if(1|| $loantype == 'both'){
 		$data = array() ;
 		$data["成交价"] = $totalprice;
-		$data["合同价"] = $totalprice*0.9 ;
-		$data["贷款额度"] = $data["合同价"]*0.7 ;
+		$data["合同价"] = $totalprice* $valuerate ;
+		$data["贷款额度"] = $data["合同价"]*( 1 - $downpayment ) ;
 		$data["纯首付"] = $totalprice - $data["贷款额度"];
 
 		$data["契税"] = $data["合同价"]*0.01 ;
@@ -72,7 +77,7 @@ function getPriceTable( $totalprice, $loantype){
 		$data = array() ;
 		$data["成交价"] = $totalprice;
 		$data["贷款额度"] = 120 ;
-		$data["合同价"] = $data["贷款额度"]/0.7 ;
+		$data["合同价"] = $data["贷款额度"]/( 1 - $downpayment ) ;
 		$data["纯首付"] = $totalprice - $data["贷款额度"];
 
 		$data["契税"] = $data["合同价"]*0.01 ;
@@ -104,8 +109,8 @@ $dataary = getPriceTable( $totalprice, '') ;
 		</tr></head><tbody>" ;
 
 $items = array( "成交价" => "", 
-	"贷款额度" => "评估价0.7,公积金最多120", 
-	"合同价" => "纯商0.95,就是网签价", 
+	"贷款额度" => "评估价0.7,公积金最多120, 北京首付0.35", 
+	"合同价" => "纯商0.95,就是网签价, 也有满评的", 
 	"纯首付" => "成交价-贷款额度", 
 	"契税" => "合同价1%", 
 	"服务费" => "成交价2.2%", 
