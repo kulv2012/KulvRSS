@@ -11,7 +11,7 @@ class Myrss_Model_Emailer {
         $this->pwd = $pwd ;
     }
 
-    public function SendMail($to, $subject, $content){
+    public function SendMail($to, $subject, $content, $file = null ){
 
         try{ 
             $transport = Swift_SmtpTransport::newInstance($this->smtp, 25) ;
@@ -25,8 +25,9 @@ class Myrss_Model_Emailer {
             $message->setTo( explode(",", $to) );
             $message->setSubject($subject ) ;
             $message->setBody($content, 'text/html') ;
-            //$message->attach(Swift_Attachment::fromPath('A Client Notification Service for Internet-Scale Applications.pdf', 'application/pdf')->setFilename('A Client Notification Service for Internet-Scale Applications.pdf'));
-
+            if( $file != null ){
+                $message->attach(Swift_Attachment::fromPath( $file['path'], $file['type'] )->setFilename( $file['filename'] ));
+            }
             $res = $mailer->send($message);
             return $res ;
         }catch (Swift_ConnectionException $e){ 

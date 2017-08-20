@@ -33,6 +33,10 @@ class MyrssAction extends Myrss_Action_Abstract {
         }
 
 
+        /*for($i = 0 ; $i< count($rsses) ; $i ++ ){
+            $idx = $i +1 ;
+            $rsses[$i]['feedurl'] = "feed$idx=".$rsses[$i]['feedurl'] ;
+        }*/
         $this->_smarty->assign("rsses", $rsses);
         return TRUE ;
     }
