@@ -1,6 +1,5 @@
 #sh
 source /home/wuhaiwen/.bash_profile
-export LD_LIBRARY_PATH=/home/wuhaiwen/lib:$LD_LIBRARY_PATH
 dir=`pwd`
 
 

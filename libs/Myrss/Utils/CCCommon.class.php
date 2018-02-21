@@ -121,7 +121,8 @@ class CCCommon // used as a namespace
         }
     }
     function get_device_type(){
-        $agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+        $ua = isset( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : "" ;
+        $agent = strtolower($ua);
         $mobile_type = 'other';
         if(strpos($agent, 'iphone') ){
             $mobile_type = 'iphone' ;
@@ -134,6 +135,54 @@ class CCCommon // used as a namespace
         }
         return $mobile_type;
     }
+
+    public static function getExceptionTraceAsString($exception) {
+        $rtn = "[" . $exception->getMessage() . "]<" ;
+        $count = 0;
+        foreach ($exception->getTrace() as $frame) {
+            $args = "";
+            if (isset($frame['args'])) {
+                $args = array();
+                foreach ($frame['args'] as $arg) {
+                    if (is_string($arg)) {
+                        /*如果长度大于256，只获取前256字符和...提示*/
+                        if (strlen($arg) >256) {
+                            $args[] = "'" . substr($arg, 0, 256) . "...'";
+                        } else {
+                            $args[] = "'" . $arg . "'";
+                        }
+                    } elseif (is_array($arg)) {
+                        $args[] = "Array";
+                    } elseif (is_null($arg)) {
+                        $args[] = 'NULL';
+                    } elseif (is_bool($arg)) {
+                        $args[] = ($arg) ? "true" : "false";
+                    } elseif (is_object($arg)) {
+                        $args[] = get_class($arg);
+                    } elseif (is_resource($arg)) {
+                        $args[] = get_resource_type($arg);
+                    } else {
+                        $args[] = $arg;
+                    }   
+                }   
+                $args = join(", ", $args);
+            }
+            $rtn .= sprintf( "#%s %s(%s): %s(%s),",
+                $count,
+                isset($frame['file']) ? $frame['file'] : 'unknown file',
+                isset($frame['line']) ? $frame['line'] : 'unknown line',
+                (isset($frame['class']))  ? $frame['class'].'->'.$frame['function'] : $frame['function'],
+                $args );
+            $count++;
+        }
+        return $rtn;
+    } 
+
+    public static function LogError($content, $filename ) {
+        file_put_contents($filename, date("Y-m-d H:i:s")." $content\n", FILE_APPEND) ;
+    }
+
+
 }
 
 

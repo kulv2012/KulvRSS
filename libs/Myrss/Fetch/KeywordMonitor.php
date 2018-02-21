@@ -41,8 +41,9 @@ class Myrss_Fetch_KeywordMonitor {
         $got = FALSE;
         $allkeys = $this->getAllKeywordInfo();
         foreach($allkeys as $key ){
+			$regstr = "#".$key['keyword']."#" ;
             if(strpos($content, $key['keyword']) !== false
-               || preg_match($key['keyword'], $content) == true  ) {
+               || preg_match( $regstr, $content) == true  ) {
                 $got = $key ;
                 break;
             }

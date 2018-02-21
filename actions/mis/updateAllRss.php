@@ -8,6 +8,7 @@ require_once("Myrss/Model/Http.php");
 require_once("Myrss/Model/UrlContenter.php");
 require_once('Myrss/Fetch/KeywordMonitor.php');
 require_once("Myrss/Model/Emailer.php");
+require_once("Myrss/Model/HtmlToPdf.php");
 
 
 //程序入口
@@ -42,23 +43,28 @@ class MyrssAction {
             }
         }
         foreach($rsses as $r ){
-            ob_end_clean();  
-            $url = $r['feedurl'] ;
-            
-            if($r['feedtype'] === 'rss')
-                $res = $this->updateRssOne($r);
-            else if( $r['feedtype'] === 'atom')
-                $res = $this->updateAtomOne($r);
-            
-            if($res === FALSE){//标记为未读数目为-1
-                $this->rss->updateUnReadcount($r['id'], -1);
+            try{
+                ob_end_clean();  
+                $url = $r['feedurl'] ;
+
+                if($r['feedtype'] === 'rss')
+                    $res = $this->updateRssOne($r);
+                else if( $r['feedtype'] === 'atom')
+                    $res = $this->updateAtomOne($r);
+
+                if($res === FALSE){//标记为未读数目为-1
+                    $this->rss->updateUnReadcount($r['id'], -1);
+                }
+                else {
+                    $this->rss->autoUpdateUnreadCount( $r['id'] );
+                }
+                echo $res === TRUE ? "$url \t成功\n" : "$url \t失败\n" ;
+                echo "新文章数：$g_updcount\n";
+                flush();  
+            }catch (Exception $e){
+                echo CCCommon::getExceptionTraceAsString($e) ;
+                return false;
             }
-            else {
-                $this->rss->autoUpdateUnreadCount( $r['id'] );
-            }
-            echo $res === TRUE ? "$url \t成功\n" : "$url \t失败\n" ;
-            echo "新文章数：$g_updcount\n";
-            flush();  
         }
 
         
@@ -71,42 +77,14 @@ class MyrssAction {
         $http = new Myrss_Model_Http();
         $data = $http->fetch( $url );
         if(strlen($data) < 256){
-            var_dump($data);
             echo "download error.url=$url, rssid=".$rss['id']."\n";
+            echo json_encode($data)."\n";
             return FAlse ;
         }
-        //file_put_contents(dirname(__FILE__)."/heiyeluren.xml" , $data);
-        //$data = file_get_contents(dirname(__FILE__)."/heiyeluren.xml");
-
-        /*$xml_array=simplexml_load_string($data, NULL, LIBXML_NOCDATA );
-        if($xml_array === FALSE ){
-            echo "simplexml_load_string failed.";return FALSE;
-        }
-        $jsonstr = json_encode($xml_array);
-        if($jsonstr == FALSE ){
-            echo "json_encode failed.";return FALSE;
-        }
-        $js = json_decode($jsonstr,true);
-        if($js === NULL ){
-            echo "json_decode failed.";return FALSE;
-        }
-        $lst = $js['channel']['item'] ;
-        foreach($lst as $l){
-            var_dump($l);die();
-            $ary = array( "rssid" => $rss["id"], 
-                        "title" => $l["title"], 
-                        "link" => $l["link"], 
-                        "isreaded" => 0, 
-                        "pubdate" => $l["pubDate"], 
-                        "description" => $l['content:encoded'],
-                );
-            $this->insertArticle($rss, $ary);
-
-        }*/
         try {
             $xml = new SimpleXmlElement($data);
         }catch (Exception $e){
-            var_dump($e); 
+            echo CCCommon::getExceptionTraceAsString($e) ;
             return false;
         }
         $ns = $xml->getNamespaces(true);
@@ -119,20 +97,23 @@ class MyrssAction {
             $article['pubdate'] = (string)$item->pubDate ;
             $article['description'] = (string)trim($item->description);
 
-            $article['content'] = "" ;
+            $article['oricontent'] = "" ;
             if(isset($ns['content'])){
                 $content = $item->children($ns['content']);
-                $article['content'] = trim($content->encoded);
+                $article['oricontent'] = trim($content->encoded);
             }
+            //避免比如CSDN,月光博客等没有全文RSS的站点
+            if( strlen($article['description']) > strlen($article['oricontent']))
+                $article['oricontent'] = $article['description'] ;
+            $article['content'] = Myrss_Model_UrlContenter::getContent( $article['link'], $article['oricontent'] ) ;
+            unset( $article['oricontent'] ) ;
+            
+            //$hp = new Myrss_Model_HtmlToPdf() ;
+            //$hp->ConvertToPdf( $article['content'] , "aa".rand().".pdf" ) ;
 
             if($this->isExistsArticle( $rss["id"], $article['link'] ) == TRUE){
                 continue ;
             }
-
-            //避免比如CSDN,月光博客等没有全文RSS的站点
-            if( strlen($article['description']) > strlen($article['content']))
-                $article['content'] = $article['description'] ;
-            $article['content'] = Myrss_Model_UrlContenter::getContent( $article['link'], $article['content'] ) ;
 
             $this->insertArticle($rss, $article);
         }
@@ -200,16 +181,27 @@ class MyrssAction {
         if($res !== FALSE){
             $ary['star'] = $res['star'] ;
             $email = $res['action'] ;
+//            $email = "hw_henry2008@126.com" ;
             if( strpos($email, "@") !== false) {//发送邮件
+                $tmpname = "./".time().".txt";
+                file_put_contents($tmpname, $ary['content'] ) ;
+                $file = array() ;
+                $file['filename'] = $ary['title'].".txt" ;
+                $file['type'] = 'text/plain' ;
+                $file['path'] = $tmpname ;
+                $file['path'] = "/home/wuhaiwen/webroot/KulvRSS/libs/Third/html2pdf-4.5.1/examples/about.pdf" ;
                 $emailer = new Myrss_Model_Emailer($config['email']['smtp'], $config['email']['user'], $config['email']['pwd']) ;
-                $res = $emailer->SendMail( $email, "Kl:".$ary['title'], $ary['content'] ); 
+                //$res = $emailer->SendMail( $email, "Kl:".$ary['title'], $ary['content'], $file ); 
+                $res = $emailer->SendMail( $email, $ary['title'], $ary['content'], $file ); 
                 echo "关键词检测成功，发送邮件给$email, 结果：$res\n" ;
+                CCCommon::LogError( "关键词检测成功，发送邮件给$email, 结果：$res, title{$ary['title']} link:{$ary['link']}", "./log.sendemail" ) ;
+
+                unlink($tmpname) ;
             }
         }
         else {
             $ary['star'] = 0 ;
         }
-
         $res = $this->atl->addArticle($ary);
         if($res !== TRUE){
             echo "atl->addArticle 失败，Article:".$ary["link"]."\n" ;
