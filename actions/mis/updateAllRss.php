@@ -106,10 +106,16 @@ class MyrssAction {
             if( strlen($article['description']) > strlen($article['oricontent']))
                 $article['oricontent'] = $article['description'] ;
             $article['content'] = Myrss_Model_UrlContenter::getContent( $article['link'], $article['oricontent'] ) ;
+<<<<<<< HEAD
             unset( $article['oricontent'] ) ;
             
             //$hp = new Myrss_Model_HtmlToPdf() ;
             //$hp->ConvertToPdf( $article['content'] , "aa".rand().".pdf" ) ;
+=======
+            
+            $hp = new Myrss_Model_HtmlToPdf() ;
+            $hp->ConvertToPdf( $article['content'] , "aa".rand().".pdf" ) ;
+>>>>>>> 0dbb6526df63427ec1b0cac628e175c45dd623bb
 
             if($this->isExistsArticle( $rss["id"], $article['link'] ) == TRUE){
                 continue ;
@@ -190,18 +196,32 @@ class MyrssAction {
                 $file['type'] = 'text/plain' ;
                 $file['path'] = $tmpname ;
                 $file['path'] = "/home/wuhaiwen/webroot/KulvRSS/libs/Third/html2pdf-4.5.1/examples/about.pdf" ;
+<<<<<<< HEAD
+=======
+                var_dumP($file);
+                var_duMP($email) ;
+>>>>>>> 0dbb6526df63427ec1b0cac628e175c45dd623bb
                 $emailer = new Myrss_Model_Emailer($config['email']['smtp'], $config['email']['user'], $config['email']['pwd']) ;
                 //$res = $emailer->SendMail( $email, "Kl:".$ary['title'], $ary['content'], $file ); 
                 $res = $emailer->SendMail( $email, $ary['title'], $ary['content'], $file ); 
                 echo "关键词检测成功，发送邮件给$email, 结果：$res\n" ;
+<<<<<<< HEAD
                 CCCommon::LogError( "关键词检测成功，发送邮件给$email, 结果：$res, title{$ary['title']} link:{$ary['link']}", "./log.sendemail" ) ;
 
                 unlink($tmpname) ;
+=======
+
+     //           unlink($tmpname) ;
+>>>>>>> 0dbb6526df63427ec1b0cac628e175c45dd623bb
             }
         }
         else {
             $ary['star'] = 0 ;
         }
+<<<<<<< HEAD
+=======
+die();
+>>>>>>> 0dbb6526df63427ec1b0cac628e175c45dd623bb
         $res = $this->atl->addArticle($ary);
         if($res !== TRUE){
             echo "atl->addArticle 失败，Article:".$ary["link"]."\n" ;
