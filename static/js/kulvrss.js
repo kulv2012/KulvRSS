@@ -20,7 +20,7 @@ function markReadStatus(rssid, aid, isreaded){
                 }
                 else {
                     if( isreaded == "1" && aid != -1){
-                        $("#listFont"+aid).css({ 'font-size': "13px", 'color': "black" }) ;
+                        $("#listFont"+aid).css({ 'font-size': "13px", 'color': "gray" }) ;
                         $("#idMarkStatus"+aid).unbind('click').bind("click", function(){
                                 markReadStatus(rssid, aid, false);
                             });
@@ -28,7 +28,7 @@ function markReadStatus(rssid, aid, isreaded){
                         $("#idMarkStatus"+aid).html("UnRd");
                     }
                     else if ( aid != -1 ){
-                        $("#listFont"+aid).css({ 'font-size': "16px", 'color': "blue" }) ;
+                        $("#listFont"+aid).css({ 'font-size': "16px", 'color': "black" }) ;
                         $("#idMarkStatus"+aid).unbind('click').bind("click", function (){
                                 markReadStatus(rssid, aid, true);
                             }) ;
