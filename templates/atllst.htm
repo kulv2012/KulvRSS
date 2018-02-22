@@ -19,7 +19,6 @@
                 <hr>
                 <li id="idContent">abba </li>
                 <hr>
-                <li id="legal"><font color=dark size=1px>趁着年轻注：我知道提取全文是不对的，但我只是用做个人学习用途哦。<br>"如果RSS源站没用提供全文RSS，我会自己提取网页全文进行显示，超越了网站的授权范围使用blog内容，构成了著作权侵权和不正当竞争。"<br>好吧，为了科研与学习目的，不构成侵权</font></li>
             </ul>
             <button style='align:right' onclick="showDocumentModel(-1, 0);">关闭阅读模式</button>
         </div>
@@ -33,7 +32,7 @@
                     <tr  border=0 onmouseover="this.className='td_mouseover';" onmouseout="this.className='';">
                     <td onclick="stopBubble(event);markReadStatus({$a.rssid}, {$a.aid}, true)">
                         <a href="#" onclick="stopBubble(event);showDocumentModel({$i}, 0);">
-                            <font id="listFont{$a.aid}" {if $a.isreaded == 0} color=blue {else} size=2px {/if} >
+                            <font id="listFont{$a.aid}" {if $a.isreaded == 0} color='0x000000' {else} color='0x555555' size=2px {/if} >
                                 .{$a.title}
                             </font>
                         </a>
