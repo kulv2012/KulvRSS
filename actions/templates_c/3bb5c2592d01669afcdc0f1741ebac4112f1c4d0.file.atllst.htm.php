@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2016-06-08 00:44:59
+<?php /* Smarty version Smarty-3.0.7, created on 2018-03-29 00:17:16
          compiled from "/home/wuhaiwen/webroot/KulvRSS/libs/Myrss/Action/../../../templates/atllst.htm" */ ?>
-<?php /*%%SmartyHeaderCode:14540963125756fa0bba1f54-35228249%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:16120228695abbc00c555cb3-82554169%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '3bb5c2592d01669afcdc0f1741ebac4112f1c4d0' => 
     array (
       0 => '/home/wuhaiwen/webroot/KulvRSS/libs/Myrss/Action/../../../templates/atllst.htm',
-      1 => 1465315439,
+      1 => 1522253834,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '14540963125756fa0bba1f54-35228249',
+  'nocache_hash' => '16120228695abbc00c555cb3-82554169',
   'function' => 
   array (
   ),
@@ -39,7 +39,6 @@ $_smarty_tpl->decodeProperties(array (
                 <hr>
                 <li id="idContent">abba </li>
                 <hr>
-                <li id="legal"><font color=dark size=1px>趁着年轻注：我知道提取全文是不对的，但我只是用做个人学习用途哦。<br>"如果RSS源站没用提供全文RSS，我会自己提取网页全文进行显示，超越了网站的授权范围使用blog内容，构成了著作权侵权和不正当竞争。"<br>好吧，为了科研与学习目的，不构成侵权</font></li>
             </ul>
             <button style='align:right' onclick="showDocumentModel(-1, 0);">关闭阅读模式</button>
         </div>
@@ -58,10 +57,17 @@ if ($_smarty_tpl->_count($_from) > 0){
                     <td onclick="stopBubble(event);markReadStatus(<?php echo $_smarty_tpl->tpl_vars['a']->value['rssid'];?>
 , <?php echo $_smarty_tpl->tpl_vars['a']->value['aid'];?>
 , true)">
+						<?php if (($_smarty_tpl->getVariable('devicetype')->value=="web")||($_smarty_tpl->getVariable('devicetype')->value=="ipad")){?>
+                                <button onclick="OpenArticleLink(<?php echo $_smarty_tpl->tpl_vars['a']->value['rssid'];?>
+, <?php echo $_smarty_tpl->tpl_vars['a']->value['aid'];?>
+, '<?php echo $_smarty_tpl->tpl_vars['a']->value['link'];?>
+')">SrcLink</button>
+								&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+						<?php }?>
                         <a href="#" onclick="stopBubble(event);showDocumentModel(<?php echo $_smarty_tpl->getVariable('i')->value;?>
 , 0);">
                             <font id="listFont<?php echo $_smarty_tpl->tpl_vars['a']->value['aid'];?>
-" <?php if ($_smarty_tpl->tpl_vars['a']->value['isreaded']==0){?> color=blue <?php }else{ ?> size=2px <?php }?> >
+" <?php if ($_smarty_tpl->tpl_vars['a']->value['isreaded']==0){?> color='0x000000' <?php }else{ ?> color='gray' size=2px <?php }?> >
                                 .<?php echo $_smarty_tpl->tpl_vars['a']->value['title'];?>
 
                             </font>

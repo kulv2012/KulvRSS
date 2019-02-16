@@ -31,6 +31,10 @@
                 {foreach $atllst as $a}
                     <tr  border=0 onmouseover="this.className='td_mouseover';" onmouseout="this.className='';">
                     <td onclick="stopBubble(event);markReadStatus({$a.rssid}, {$a.aid}, true)">
+						{if ($devicetype == "web") || ($devicetype == "ipad")}
+                                <button onclick="OpenArticleLink({$a.rssid}, {$a.aid}, '{$a.link}')">SrcLink</button>
+								&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+						{/if}
                         <a href="#" onclick="stopBubble(event);showDocumentModel({$i}, 0);">
                             <font id="listFont{$a.aid}" {if $a.isreaded == 0} color='0x000000' {else} color='gray' size=2px {/if} >
                                 .{$a.title}

@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2016-06-08 00:44:56
+<?php /* Smarty version Smarty-3.0.7, created on 2018-02-22 13:33:06
          compiled from "/home/wuhaiwen/webroot/KulvRSS/libs/Myrss/Action/../../../templates/shareHeader.htm" */ ?>
-<?php /*%%SmartyHeaderCode:19914460455756fa089ae706-89898773%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:14807111595a8e56124512c0-39074466%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '16e12e0ef3b2582710956057c8d9bb418394b1b3' => 
     array (
       0 => '/home/wuhaiwen/webroot/KulvRSS/libs/Myrss/Action/../../../templates/shareHeader.htm',
-      1 => 1465315440,
+      1 => 1519277565,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '19914460455756fa089ae706-89898773',
+  'nocache_hash' => '14807111595a8e56124512c0-39074466',
   'function' => 
   array (
   ),
@@ -31,5 +31,5 @@ $_smarty_tpl->decodeProperties(array (
         <script src="/static/js/jquery-ui-1.9.1.custom.min.js" type="text/javascript"></script>
         <script src="/static/js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
         <script src="/static/js/jquery.timers-1.2.js" type="text/javascript"></script>
-        <script src="/static/js/kulvrss.js" type="text/javascript"></script>
+        <script src="/static/js/kulvrss.js?v=1" type="text/javascript"></script>
     </head>

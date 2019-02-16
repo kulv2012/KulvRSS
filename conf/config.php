@@ -19,5 +19,5 @@ $config['db'] = $db ;
 $config['email'] = array(
         "smtp" => "smtp.126.com", 
         "user" => "kulvrss@126.com",
-        "pwd" => "",
+        "pwd" => "kulvrss123forphp",
         ) ;
