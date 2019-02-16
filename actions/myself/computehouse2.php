@@ -1,26 +1,29 @@
 <?php
-echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">' ;
+echo '<html>
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">' ;
 echo '<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
        <META HTTP-EQUIV="Expires" CONTENT="-1">';
-	
+
 $totalprice = isset( $_REQUEST['totalprice'] ) ? intval($_REQUEST['totalprice'] ) : 500 ;
 $downpayment = isset( $_REQUEST['downpayment'] ) ? $_REQUEST['downpayment'] : 0.35 ;
 $loantype = isset( $_REQUEST['loantype'] ) ?  $_REQUEST['loantype'] : "business" ;
 
 ?>
-
+</head>
+<body >
+<font size="5">
 <form action="/myself/computehouse2.php" method="get" >
 
-<input name="type" value='addclass' type='hidden' id="input1">
-	成交价:<input type="text" name="totalprice" id="input1" value='<?=$totalprice?>'><br>
-	首付比例:<input type="text" name="downpayment" id="input1" value='<?=$downpayment?>'><br>
+	成交价:<input type="text" name="totalprice" id="input1" style='font-size:40px;' value='<?=$totalprice?>'><br>
+	首付比例:<input type="text" name="downpayment" id="input1" style='font-size:40px;' value='<?=$downpayment?>'><br>
 	
 	<input type="checkbox" name="isfileone" checked="checked" >满五唯一<br/>
 
 	<input type="radio" name="loantype" value="business" <?if($loantype=='business') echo 'checked="checked"';?>/> 商品房
 	<input type="radio" name="loantype" value="jingjisihyong" <?if($loantype=='jingjisihyong') echo 'checked="checked"';?>/>经品房(10%地价款)
+	<input type="submit" value="计算" style='font-size:40px;'>
 	<hr>
-	<input type="submit" value="计算">
 </form>
 <?php
 
@@ -65,11 +68,11 @@ function getPriceTable( $totalprice, $loantype){
 
 $tabstr = '' ;
 $dataary = getPriceTable( $totalprice, '') ;
-	$tabstr .= "<table ><thead><tr>
+	$tabstr .= "<table style='font-size:40px;'><thead><tr>
 		<th>项目名</th>
 		<th>商贷</th><th>-</th> 
 		<th>备注</th>
-		</tr></head><tbody>" ;
+		</tr></thead><tbody>" ;
 
 $items = array( "成交价" => "", 
 	"贷款额度" => "评估价0.65，首套首付0.35", 
@@ -104,15 +107,6 @@ $items = array( "成交价" => "",
 	echo "$tabstr" ;
 
 ?>
-<!--	
-<style type="text/css">
-.left {    float:left;    display:inline;}
-.center{    float:left;    display:inline;}
-.right{    float:left;    display:inline;}
-</style>
-<div class="left"><?=$business?></div>
-<div class="center"><?=$both?></div>
-<div class="right"><?=$gjj?></div>
-
-
---!>
+</font>
+</body>
+</html>
