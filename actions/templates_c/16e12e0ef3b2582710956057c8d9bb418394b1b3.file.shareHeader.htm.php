@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2018-02-22 13:33:06
+<?php /* Smarty version Smarty-3.0.7, created on 2021-04-10 23:26:11
          compiled from "/home/wuhaiwen/webroot/KulvRSS/libs/Myrss/Action/../../../templates/shareHeader.htm" */ ?>
-<?php /*%%SmartyHeaderCode:14807111595a8e56124512c0-39074466%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:20924861486071c39335a6e6-22675624%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '16e12e0ef3b2582710956057c8d9bb418394b1b3' => 
     array (
       0 => '/home/wuhaiwen/webroot/KulvRSS/libs/Myrss/Action/../../../templates/shareHeader.htm',
-      1 => 1519277565,
+      1 => 1617589459,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '14807111595a8e56124512c0-39074466',
+  'nocache_hash' => '20924861486071c39335a6e6-22675624',
   'function' => 
   array (
   ),
